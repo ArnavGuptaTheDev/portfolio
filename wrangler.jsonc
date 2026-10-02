@@ -1,0 +1,11 @@
+// The site is fully static: Wrangler just uploads dist/ as assets.
+// Having this file also stops `wrangler deploy` from auto-adding the Astro
+// Cloudflare adapter, which can't prerender this site.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "compatibility_date": "2026-10-02",
+  "assets": {
+    "directory": "./dist"
+  }
+}
