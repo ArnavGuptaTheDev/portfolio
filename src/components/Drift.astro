@@ -1,0 +1,18 @@
+---
+// A few slow particles so sections below the hero keep a trace of the sky.
+import { rng } from '../scene/geometry';
+interface Props {
+  seed: number;
+}
+const rand = rng(Astro.props.seed);
+const dots = Array.from({ length: 7 }, () => ({
+  left: (rand() * 100).toFixed(1),
+  top: (20 + rand() * 75).toFixed(1),
+  delay: (-rand() * 26).toFixed(1),
+  dur: (20 + rand() * 16).toFixed(1),
+}));
+---
+
+<div class="drift" aria-hidden="true">
+  {dots.map((d) => <i style={`left:${d.left}%;top:${d.top}%;animation-delay:${d.delay}s;animation-duration:${d.dur}s`}></i>)}
+</div>

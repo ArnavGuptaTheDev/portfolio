@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import Dial from '../components/Dial.astro';
+import Hero from '../components/Hero.astro';
+import Sections from '../components/Sections.astro';
+import { person } from '../content';
+---
+
+<Base>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <Hero />
+  <main id="main">
+    <Sections />
+  </main>
+  <footer class="site-footer">
+    <div class="container">
+      <p class="phase-line js-only" aria-live="off"></p>
+      <p>© {new Date().getFullYear()} {person.name}</p>
+    </div>
+  </footer>
+  <Dial />
+  <div class="cursor" aria-hidden="true"><span class="cursor-ring"></span><span class="cursor-dot"></span></div>
+  <script>
+    import '../main';
+  </script>
+</Base>

@@ -1,0 +1,101 @@
+---
+import { about, contact, experience, person, projects, skills, work } from '../content';
+import Drift from './Drift.astro';
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="about" aria-labelledby="about-title">
+  <Drift seed={1} />
+  <div class="container">
+    <SectionHead index="01" title={about.heading} id="about-title" />
+    <div class="about-grid">
+      {about.paragraphs.map((p) => <p>{p}</p>)}
+      <p class="currently"><span class="pulse-dot" aria-hidden="true"></span><span>Currently</span><strong>{about.currently}</strong></p>
+    </div>
+  </div>
+</section>
+
+<section id="work" aria-labelledby="work-title">
+  <Drift seed={2} />
+  <div class="container">
+    <SectionHead index="02" title="Selected work" id="work-title" />
+    <div class="card-grid work">
+      {work.map((c) => (
+        <article class="card" data-tilt>
+          <h3>{c.title}</h3>
+          <dl>
+            <div><dt>Problem</dt><dd>{c.problem}</dd></div>
+            <div><dt>What I built</dt><dd>{c.built}</dd></div>
+            <div><dt>Outcome</dt><dd class="outcome">{c.outcome}</dd></div>
+          </dl>
+          <ul class="tags" aria-label="Technologies">{c.tags.map((t) => <li>{t}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id="experience" aria-labelledby="experience-title">
+  <Drift seed={3} />
+  <div class="container">
+    <SectionHead index="03" title="Experience" id="experience-title" />
+    <ol class="pipeline" data-pipeline>
+      {experience.map((r) => (
+        <li class="stage">
+          <span class="stage-node" aria-hidden="true">{r.marker}</span>
+          <h3>{r.title}</h3>
+          <div class="stage-meta"><span>{r.org}</span><span>{r.period}</span></div>
+          {r.summary && <p>{r.summary}</p>}
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section id="projects" aria-labelledby="projects-title">
+  <Drift seed={4} />
+  <div class="container">
+    <SectionHead index="04" title="Projects" id="projects-title" />
+    <div class="card-grid">
+      {projects.map((p) => (
+        <article class="card" data-tilt>
+          <h3>{p.title}</h3>
+          <p class="project-summary">{p.summary}</p>
+          {p.details && <p class="project-details">{p.details}</p>}
+          <ul class="tags" aria-label="Technologies">{p.tags.map((t) => <li>{t}</li>)}</ul>
+          {p.links && p.links.length > 0 && (
+            <p class="project-links">{p.links.map((l) => <a href={l.href} data-magnetic>{l.label}</a>)}</p>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id="skills" aria-labelledby="skills-title">
+  <div class="container">
+    <SectionHead index="05" title="Skills" id="skills-title" />
+    <dl class="skills">
+      {skills.map((g) => (
+        <div>
+          <dt>{g.label}</dt>
+          <dd><ul>{g.items.map((s) => <li>{s}</li>)}</ul></dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section id="contact" aria-labelledby="contact-title">
+  <Drift seed={6} />
+  <div class="container">
+    <SectionHead index="06" title={contact.heading} id="contact-title" />
+    <p class="contact-lead">{contact.body}</p>
+    <a class="contact-email" href={contact.links[0].href} data-magnetic>{contact.links[0].text}</a>
+    <ul class="contact-links">
+      {contact.links.slice(1).map((l) => (
+        <li><a href={l.href} data-magnetic target="_blank" rel="noopener" {...(l.href === person.resume ? { download: person.resumeFilename } : {})}><small>{l.label}</small><span>{l.text}</span></a></li>
+      ))}
+    </ul>
+  </div>
+</section>

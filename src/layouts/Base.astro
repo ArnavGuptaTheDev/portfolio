@@ -1,0 +1,92 @@
+---
+import path from 'node:path';
+import { build } from 'esbuild';
+import { site, person } from '../content';
+import { computeState, minutesFor } from '../engine/engine';
+import { PHASE_SHOWCASE } from '../engine/phases';
+import { fixedWindows } from '../engine/sun';
+import { rootStyle } from '../engine/vars';
+import '../styles/global.css';
+
+// The head boot script is the engine bundled to a tiny IIFE at build time,
+// so it shares one source of truth with the client bundle.
+const boot = await build({
+  entryPoints: [path.join(process.cwd(), 'src/engine/boot.ts')],
+  bundle: true,
+  minify: true,
+  format: 'iife',
+  write: false,
+  target: 'es2020',
+  legalComments: 'none',
+});
+const bootJs = boot.outputFiles[0].text;
+
+// Server-rendered default (and the no-JS experience): daytime.
+const w = fixedWindows();
+const day = computeState(minutesFor('day', PHASE_SHOWCASE.day, w), w);
+const defaults = rootStyle(day, 1440, 900)
+  .split(';')
+  .map((decl) => decl.split(':') as [string, string]);
+
+// Registering the tokens lets the browser interpolate them when the theme
+// eases (first refinement, light/dark switch). Colours, numbers and lengths.
+const syntax = (value: string) => (value.startsWith('#') ? '<color>' : value.endsWith('px') ? '<length>' : '<number>');
+const registrations = defaults
+  .filter(([name]) => name.startsWith('--'))
+  .map(([name, value]) => `@property ${name}{syntax:'${syntax(value)}';inherits:true;initial-value:${value}}`)
+  .join('');
+const rootDefaults = `:root{${defaults.map(([n, v]) => `${n}:${v}`).join(';')}}`;
+const easedProps = defaults
+  .filter(([name]) => name.startsWith('--'))
+  .map(([name]) => `${name} 1.1s ease`)
+  .join(',');
+// The light/dark switch only steps the page tokens; the scene keeps blending on its own.
+const uiProps = ['bg', 'surface', 'text', 'muted', 'accent', 'accent2', 'border', 'onAccent', 'hero', 'heroMuted', 'glow']
+  .map((k) => `--${k} .9s ease`)
+  .join(',');
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(site.ogImage, site.url).href;
+---
+
+<!doctype html>
+<html lang="en" data-phase="day">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={person.name} />
+    <meta name="theme-color" content="#f4f7fb" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="A dusk landscape with mountains, a city skyline and the name Arnav Gupta." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href="/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-tight.woff2" as="font" type="font/woff2" crossorigin />
+
+    <style is:inline set:html={`${registrations}${rootDefaults}:root.theme-ease{transition:${easedProps}}:root.theme-ease-ui{transition:${uiProps}}`}></style>
+    <script is:inline set:html={bootJs}></script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
