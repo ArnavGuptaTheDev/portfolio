@@ -53,6 +53,7 @@ export const person = {
   email: 'clusterwithgigs@gmail.com',
   linkedin: 'https://www.linkedin.com/in/the-arnavgupta',
   github: 'https://github.com/ArnavGuptaTheDev',
+  source: 'https://github.com/ArnavGuptaTheDev/portfolio',
   resume: '/resume.pdf',
   /** Filename the browser saves the resume as. */
   resumeFilename: 'Arnav_Gupta_Resume.pdf',
@@ -155,7 +156,10 @@ export const projects: Project[] = [
     details:
       'Google OAuth with PKCE, per-user isolation enforced by composite foreign keys, and an append-only audit log guarded by database triggers. Money is stored as whole paise. The security tests run against the real Worker and D1, and a new API route fails the build until it is added to the suite. It runs on Cloudflare’s free tier.',
     tags: ['TypeScript', 'Astro', 'Hono', 'Cloudflare Workers', 'D1', 'Zod', 'Vitest'],
-    links: [{ label: 'Live site', href: 'https://pfm.arnavg.me/' }],
+    links: [
+      { label: 'Live site', href: 'https://pfm.arnavg.me/' },
+      { label: 'Code', href: 'https://github.com/ArnavGuptaTheDev/personal-finance-manager' },
+    ],
   },
   {
     title: 'Spotter',
@@ -176,7 +180,10 @@ export const projects: Project[] = [
     details:
       'The calculation code is a pure TypeScript module with Vitest tests, and the IRR is found by bisection so it always returns an answer. It includes a prepayment planner, a hand-written SVG chart, share links and CSV, PNG and PDF exports. No backend and no UI framework.',
     tags: ['Astro', 'TypeScript', 'Vitest', 'SVG', 'PWA', 'Cloudflare Pages'],
-    links: [{ label: 'Live site', href: 'https://emicalc.arnavg.me/' }],
+    links: [
+      { label: 'Live site', href: 'https://emicalc.arnavg.me/' },
+      { label: 'Code', href: 'https://github.com/ArnavGuptaTheDev/EMICalc' },
+    ],
   },
   {
     title: 'GiftLink',
@@ -185,7 +192,10 @@ export const projects: Project[] = [
     details:
       'Default fields are left out, so a basic gift fits in 44 characters. Custom theme colours keep their hue but are adjusted to meet contrast minimums. Older link formats still decode after format changes, and links fall back through three keyless shorteners.',
     tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion'],
-    links: [{ label: 'Live site', href: 'https://asmallgift.arnavg.me/' }],
+    links: [
+      { label: 'Live site', href: 'https://asmallgift.arnavg.me/' },
+      { label: 'Code', href: 'https://github.com/ArnavGuptaTheDev/a-small-gift' },
+    ],
   },
   {
     title: 'Home Lab',

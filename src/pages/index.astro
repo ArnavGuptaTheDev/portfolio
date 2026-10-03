@@ -16,6 +16,7 @@ import { person } from '../content';
     <div class="container">
       <p class="phase-line js-only" aria-live="off"></p>
       <p>© {new Date().getFullYear()} {person.name}</p>
+      <p><a href={person.source} target="_blank" rel="noopener">Site source<span class="sr-only"> on GitHub (opens in a new tab)</span></a></p>
     </div>
   </footer>
   <Dial />
