@@ -149,6 +149,33 @@ export const experience: Role[] = [
 // Add a project by adding an entry here; the Projects section renders whatever is in this list.
 export const projects: Project[] = [
   {
+    title: 'Personal Finance Manager',
+    summary:
+      'A private, invite-only app for tracking spending. It parses HDFC and ICICI bank statements in the browser, so the file is never uploaded, sorts each transaction into a category automatically, and tracks budgets, informal loans and EMIs.',
+    details:
+      'Google OAuth with PKCE, per-user isolation enforced by composite foreign keys, and an append-only audit log guarded by database triggers. Money is stored as whole paise. The security tests run against the real Worker and D1, and a new API route fails the build until it is added to the suite. It runs on Cloudflare’s free tier.',
+    tags: ['TypeScript', 'Astro', 'Hono', 'Cloudflare Workers', 'D1', 'Zod', 'Vitest'],
+    links: [{ label: 'Live site', href: 'https://pfm.arnavg.me/' }],
+  },
+  {
+    title: 'EMICalc',
+    summary:
+      'An offline EMI calculator for Indian loans and credit-card EMIs that shows the real cost: 18% GST on interest, processing fees and first-statement interest, combined into one effective annual rate (IRR).',
+    details:
+      'The calculation code is a pure TypeScript module with Vitest tests, and the IRR is found by bisection so it always returns an answer. It includes a prepayment planner, a hand-written SVG chart, share links and CSV, PNG and PDF exports. No backend and no UI framework.',
+    tags: ['Astro', 'TypeScript', 'Vitest', 'SVG', 'PWA', 'Cloudflare Pages'],
+    links: [{ label: 'Live site', href: 'https://emicalc.arnavg.me/' }],
+  },
+  {
+    title: 'GiftLink',
+    summary:
+      'Send someone a virtual bouquet and ice cream as a link. The whole gift is encoded in the URL fragment, so there is no server, no database and no accounts, and gift contents never reach server logs.',
+    details:
+      'Default fields are left out, so a basic gift fits in 44 characters. Custom theme colours keep their hue but are adjusted to meet contrast minimums. Older link formats still decode after format changes, and links fall back through three keyless shorteners.',
+    tags: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Framer Motion'],
+    links: [{ label: 'Live site', href: 'https://asmallgift.arnavg.me/' }],
+  },
+  {
     title: 'Home Lab',
     summary:
       'A self-hosted Proxmox server running LXC containers and VMs: NAS, media server, Home Assistant, Docker services and a CUPS print server.',

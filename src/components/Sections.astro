@@ -64,7 +64,7 @@ import SectionHead from './SectionHead.astro';
           {p.details && <p class="project-details">{p.details}</p>}
           <ul class="tags" aria-label="Technologies">{p.tags.map((t) => <li>{t}</li>)}</ul>
           {p.links && p.links.length > 0 && (
-            <p class="project-links">{p.links.map((l) => <a href={l.href} data-magnetic>{l.label}</a>)}</p>
+            <p class="project-links">{p.links.map((l) => <a href={l.href} data-magnetic target="_blank" rel="noopener"><span>{l.label}</span><span aria-hidden="true">↗</span><span class="sr-only"> for {p.title} (opens in a new tab)</span></a>)}</p>
           )}
         </article>
       ))}
