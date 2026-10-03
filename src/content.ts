@@ -158,6 +158,18 @@ export const projects: Project[] = [
     links: [{ label: 'Live site', href: 'https://pfm.arnavg.me/' }],
   },
   {
+    title: 'Spotter',
+    summary:
+      'An invite-only, mobile-first gym app for two partners who coach each other. Each writes the other’s workout and diet plan, and both log their days, share progress photos, chat and keep a shared streak. It installs to the home screen and runs on Cloudflare’s free tier.',
+    details:
+      'Hand-written Google OAuth with PKCE, no auth library. One-to-one pairing is enforced by UNIQUE constraints and a SQL trigger, and invites are claimed atomically. Photos are stripped of location data before upload and served from a private bucket. 142 tests run in the real Workers runtime, including one that scans every table to confirm a deleted account leaves nothing behind.',
+    tags: ['TypeScript', 'Astro', 'Preact', 'Cloudflare Workers', 'D1', 'R2', 'Vitest'],
+    links: [
+      { label: 'Live site', href: 'https://trainer.arnavg.me/' },
+      { label: 'Code', href: 'https://github.com/ArnavGuptaTheDev/partner-gym-trainer' },
+    ],
+  },
+  {
     title: 'EMICalc',
     summary:
       'An offline EMI calculator for Indian loans and credit-card EMIs that shows the real cost: 18% GST on interest, processing fees and first-statement interest, combined into one effective annual rate (IRR).',
